@@ -1,4 +1,14 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using AuktionApp.Areas.Identity.Data;
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("AuktionAppIdentityDbContextConnection") ?? throw new InvalidOperationException("Connection string 'AuktionAppIdentityDbContextConnection' not found.");;
+
+builder.Services.AddDbContext<AuktionAppIdentityDbContext>(options =>  //IN MEMORY-DATABASEN
+     options.UseInMemoryDatabase("AuktionerDb"));
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+     options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AuktionAppIdentityDbContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -16,6 +26,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
