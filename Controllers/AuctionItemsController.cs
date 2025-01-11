@@ -108,7 +108,15 @@ namespace AuktionApp.Controllers
                         existingAuctionItem.FinalPrice = auctionItem.FinalPrice;
                         existingAuctionItem.Status = auctionItem.Status;
                     }
-
+                    else if (User.IsInRole("Inköpare"))
+                    {
+    
+                        existingAuctionItem.Name = auctionItem.Name;
+                        existingAuctionItem.Decade = auctionItem.Decade;
+                        existingAuctionItem.Description = auctionItem.Description;
+                        existingAuctionItem.Category = auctionItem.Category;
+                        existingAuctionItem.StartingPrice = auctionItem.StartingPrice;
+                    }
                     _context.Update(existingAuctionItem);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Inventory));

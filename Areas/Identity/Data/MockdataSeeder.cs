@@ -27,16 +27,16 @@ public static class MockdataSeeder  // MockdataSeeder statisk klass för att lä
         {
             new AuctionItem //Skapar en lista med auktionerna nedan
             {
-            Id = "ABC123456",
-            Name = "Vintage Radio",
-            Decade = "1960s",
-            Description = "En klassisk radio från 60-talet i mycket bra skick.",
-            Category = "Elektronik",
-            StartingPrice = 500,
-            FinalPrice = null,
-            Status = AuctionStatus.Tillgänglig,
-            CreatedById = user.Id,
-            CreatedBy = user
+                Id = "ABC123456",
+                Name = "Vintage Radio",
+                Decade = "1960s",
+                Description = "En klassisk radio från 60-talet i mycket bra skick.",
+                Category = "Elektronik",
+                StartingPrice = 500,
+                FinalPrice = null,
+                Status = AuctionStatus.Tillgänglig,
+                CreatedById = user.Id,
+                CreatedBy = user
             },
             new AuctionItem
             {
