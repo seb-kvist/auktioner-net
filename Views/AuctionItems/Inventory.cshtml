@@ -1,0 +1,56 @@
+@model IEnumerable<AuktionApp.Models.AuctionItem>
+
+@{
+    ViewData["Title"] = "Inventarie";
+}
+
+<h1>Inventarie</h1>
+@* Kontrollerar om användaren inte är inloggad *@
+@if (!User.Identity.IsAuthenticated)
+{
+    <p>
+        Logga in för att lägga till försäljningsobjekt som Inköpare,
+         eller avsluta auktioner som Auktionsansvarig.
+    </p>
+}
+@* Om användaren är inköpare visas knappen för att lägga till försäljningsobjekt *@
+@if (User.IsInRole("Inköpare"))
+{
+    <a asp-controller="AuctionItems" asp-action="AddAuction" class="AddAucBtn">Lägg till försäljningsobjekt</a>
+}
+
+<div class="inventory-list"> 
+    @foreach (var item in Model)
+    {
+        <div class="auction-item">  @* Container för varje försäljningsobjekt *@
+            <div class="item-header">
+                <h2>@item.Name</h2>
+            </div>
+            <div class="item-body">
+                <p><strong>Årtionde:</strong> @item.Decade</p>
+                <p><strong>Beskrivning:</strong> @item.Description</p>
+                <p><strong>Kategori:</strong> @item.Category</p>
+                <p><strong>Startpris:</strong> @item.StartingPrice</p>
+                <p><strong>Slutpris:</strong> @item.FinalPrice</p>
+                <p><strong>Status:</strong> @item.Status</p>
+                <p><strong>Skapad av:</strong> @(item.CreatedBy?.UserName ?? "Okänd användare")</p>
+            </div>
+
+            @* Kontrollerar om man är inköpare OCH har skapat objektet *@
+            @if (User.IsInRole("Inköpare") && item.CreatedBy?.UserName == User.Identity.Name)
+            {
+                <div class="item-actions">
+                    <a asp-action="EditAuction" asp-route-id="@item.Id" class="EditAucBtn">Redigera</a>
+                </div>
+            }
+
+            @* Om man är Auktionsansvarig kan man trycka på edit utan att vara skaparen *@
+            @if (User.IsInRole("Auktionsansvarig"))
+            {
+                <div class="item-actions">
+                    <a asp-action="EditAuction" asp-route-id="@item.Id" class="EditAucBtn">Redigera</a>
+                </div>
+            }
+        </div>
+    }
+</div>

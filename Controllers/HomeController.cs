@@ -1,16 +1,18 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using AuktionApp.Models;
+using Microsoft.EntityFrameworkCore;
+using AuktionApp.Areas.Identity.Data;
 
 namespace AuktionApp.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly AuktionAppIdentityDbContext _context;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, AuktionAppIdentityDbContext context) 
     {
-        _logger = logger;
+        _context = context;
     }
 
     public IActionResult Index()
@@ -22,6 +24,12 @@ public class HomeController : Controller
     {
         return View();
     }
+
+    public IActionResult Inventory()
+        {
+            var items = _context.AuctionItems.Include(a => a.CreatedBy).ToList();
+            return View(items);
+        }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

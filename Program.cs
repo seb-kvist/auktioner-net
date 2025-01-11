@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using AuktionApp.Areas.Identity.Data;
-using AuktionApp.Areas.Identity.Seeders;
+using AuktionApp.Controllers;
+
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("AuktionAppIdentityDbContextConnection") ?? throw new InvalidOperationException("Connection string 'AuktionAppIdentityDbContextConnection' not found.");;
@@ -27,12 +28,14 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
 
     try
-    {
+    {   
         var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-        await RoleSeeder.SeedRolesAsync(roleManager);
-        //
+        var controller = new RoleCreatorController(roleManager);
+        await controller.CreateRoles();
+
         var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
-        var roles = await roleManager.Roles.ToListAsync();
+        var context = services.GetRequiredService<AuktionAppIdentityDbContext>();
+        await MockdataSeeder.SeedMockDataAsync(context, userManager);
     }
     catch (Exception ex)
     {

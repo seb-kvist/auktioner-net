@@ -1,0 +1,88 @@
+@model AuktionApp.Models.AuctionItem
+
+@{
+    ViewData["Title"] = "Redigera försäljningsobjekt";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="EditAuction" asp-controller="AuctionItems" method="post">
+    @* Dold input för objektets ID *@
+    <input type="hidden" asp-for="Id" />
+
+    @* Om användaren är en Inköpare *@
+    @if (User.IsInRole("Inköpare"))
+    {
+        <div>
+            <label asp-for="Name"></label>
+            <input asp-for="Name"/>
+            <span asp-validation-for="Name"></span>
+        </div>
+
+        <div>
+            <label asp-for="Decade"></label>
+            <input asp-for="Decade"/>
+            <span asp-validation-for="Decade"></span>
+        </div>
+
+        <div>
+            <label asp-for="Category"></label>
+            <input asp-for="Category"/>
+            <span asp-validation-for="Category"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description"></label>
+            <textarea asp-for="Description"></textarea>
+            <span asp-validation-for="Description"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="StartingPrice"></label>
+            <input asp-for="StartingPrice" type="number"/>
+            <span asp-validation-for="StartingPrice"></span>
+        </div>
+
+        @* Dolda fält för FinalPrice och Status så att de behåller sina värden *@
+        <input type="hidden" asp-for="FinalPrice" />
+        <input type="hidden" asp-for="Status" />
+    }
+
+    @* Om användaren är Auktionsansvarig *@
+    @if (User.IsInRole("Auktionsansvarig"))
+    {
+        <div>
+            <label asp-for="FinalPrice"></label>
+            <input asp-for="FinalPrice" type="number"/>
+            <span asp-validation-for="FinalPrice"></span>
+        </div>
+
+        <div>
+            <label asp-for="Status"></label>
+            <select asp-for="Status">
+                <option value="Tillgänglig" selected="@(Model.Status == AuctionStatus.Tillgänglig)">Tillgänglig</option>
+                <option value="Såld" selected="@(Model.Status == AuctionStatus.Såld)">Såld</option>
+            </select>
+            <span asp-validation-for="Status"></span>
+        </div>
+
+         @* Dolda fält för FinalPrice och Status så att de behåller sina värden *@
+        <input type="hidden" asp-for="Name" />
+        <input type="hidden" asp-for="Decade" />
+        <input type="hidden" asp-for="Category" />
+        <input type="hidden" asp-for="Description" />
+        <input type="hidden" asp-for="StartingPrice" />
+    }
+
+    <button type="submit" class="standardBtn">Spara</button>
+</form>
+
+<div>
+    <button class="standardBtn">
+        <a asp-action="Inventory">Tillbaka till listan</a>
+    </button>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

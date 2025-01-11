@@ -7,23 +7,25 @@ namespace AuktionApp.Tests
 {
     public class AuctionItemTests
     {
-        [Fact]
-        public void StartingPrice_Less_Than_CostPrice()
+        //TEST 1 - Kollar om slutpriset är större än startpriset
+        [Fact] 
+        public void FinalPriceIsMoreStartingPricee()
         {
             // Arrange
             var auctionItem = new AuctionItem
             {
-                StartingPrice = 100,
-                FinalPrice = 50
+                StartingPrice = 50,
+                FinalPrice = 100
             };
 
             // Act
-            var isValid = auctionItem.StartingPrice >= auctionItem.FinalPrice;
+            var isValid = auctionItem.FinalPrice > auctionItem.StartingPrice;
 
             // Assert
-            Assert.True(isValid, "Startpriset kan inte vara lägre än inköpspris.");
+            Assert.True(isValid, "Slutpriset måste vara större än startpriset");
         }
 
+        //TEST 2 - Kollar om ID är i rätt format
         [Fact]
         public void AuctionItem_Id_Format()
         {

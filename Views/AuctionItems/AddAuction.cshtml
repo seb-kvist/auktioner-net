@@ -1,0 +1,63 @@
+@model AuktionApp.Models.AuctionItem
+
+@{
+    ViewData["Title"] = Model.Id == null ? "Lägg till försäljningsobjekt" : "Redigera försäljningsobjekt";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@* Enkla forumär där validation skickar felmedellande om det är tomt *@
+<form asp-action="AddAuction"> 
+    <div> 
+        <label asp-for="Name"></label>
+        <input asp-for="Name" placeholder="Objektets namn"/>
+        <span asp-validation-for="Name"></span>
+    </div>
+
+    <div>
+        <label asp-for="Decade"></label>
+        <input asp-for="Decade" placeholder="Årtionde, ex. 1920"/>
+        <span asp-validation-for="Decade"></span>
+    </div>
+
+    <div>
+        <label asp-for="Description"></label>
+        <input asp-for="Description" placeholder="Beskrivning av objekt" />
+        <span asp-validation-for="Description"></span>
+    </div>
+
+    <div>
+        <label asp-for="Category"></label>
+        <input asp-for="Category" placeholder="Objektets kategori"/>
+        <span asp-validation-for="Category"></span>
+    </div>
+    
+    <div>
+        <label asp-for="StartingPrice"></label>
+        <input asp-for="StartingPrice" placeholder="Pris, ex. 155" />
+        <span asp-validation-for="StartingPrice"></span>
+    </div>
+
+    @*Osynliga fält, finns kvar för att ladda in data *@
+    <div>
+        <input asp-for="FinalPrice" type="hidden" />
+        <input asp-for="CreatedById" type="hidden" />
+        <input asp-for="CreatedById" type="hidden" />
+        <input asp-for="Id" type="hidden" />
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Spara" class="standardBtn" />
+    </div>
+</form>
+
+<div>
+    <button class="standardBtn">
+        <a asp-action="Inventory">Tillbaka till listan</a>
+    </button>
+    
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
