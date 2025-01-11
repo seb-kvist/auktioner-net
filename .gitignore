@@ -47,7 +47,7 @@ dist/
 
 # Tillåt CSS-filer i wwwroot/css
 !wwwroot/css/
-!wwwroot/css/**/*.css
+!wwwroot/css/site.css
 
 # Resurser och externa verktyg
 node_modules/
