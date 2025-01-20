@@ -1,7 +1,6 @@
 # auktioner-net
-Using MVC and CoreIdentity to create an auction house-based website where you can register and log in as two different roles.
-
 This is a .NET 9.0 web application using ASP.NET Core and Entity Framework Core with an in-memory database for development purposes.
+
 Requirements
 
 Before running the project, ensure you have the following installed on your system:
