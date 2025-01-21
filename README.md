@@ -1,14 +1,14 @@
 # auktioner-net
 This is a .NET 9.0 web application using ASP.NET Core and Entity Framework Core with an in-memory database for development purposes.
 
-Requirements
+## Requirements
 
 Before running the project, ensure you have the following installed on your system:
 
     .NET 9.0 SDK or later
     A code editor, such as Visual Studio (recommended) or Visual Studio Code
 
-Packages
+## Packages
 
 The project uses the following NuGet packages. These are automatically restored when you build the project:
 
@@ -22,31 +22,32 @@ The project uses the following NuGet packages. These are automatically restored 
     xunit (2.9.3)
     xUnit.runner.visualstudio (3.0.1)
 
-You do not need to install these manually. They will be restored by running dotnet restore.
-Setup Instructions
+You do not need to install these manually. They will be restored by running `dotnet restore`.
 
-    Clone this repository:
+## Setup Instructions
 
-git clone https://github.com/seb-kvist/auktioner-net.git
-cd auktioner-net
+Clone this repository:
+
+    git clone https://github.com/seb-kvist/auktioner-net.git
+    cd auktioner-net
 
 Restore the required packages:
 
-dotnet restore
+    dotnet restore
 
 Run the application:
 
     dotnet run
 
-    Open your browser and navigate to https://localhost:5001 (or the port specified in the console output).
+Open your browser and navigate to https://localhost:5001 (or the port specified in the console output).
 
-Testing
+## Testing
 
 To run tests, use the following command:
 
-dotnet test
+    dotnet test
 
-Features
+## Features
 
     ASP.NET Core Identity for user authentication
     Entity Framework Core with an in-memory database for development
