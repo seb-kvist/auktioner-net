@@ -1,5 +1,5 @@
 # auktioner-net
-This is a .NET 9.0 web application using ASP.NET Core and Entity Framework Core with an in-memory database for development purposes.
+This is a .NET 9.0 web application using ASP.NET Core and Entity Framework Core with an in-memory database for development purposes. Learning and practicing on CoreIdentity on this project.
 
 ## Requirements
 
